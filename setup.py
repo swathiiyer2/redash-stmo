@@ -36,7 +36,11 @@ setup(
     entry_points={
         'redash.extensions': [
             'dockerflow = redash_stmo.dockerflow:dockerflow',
-            'datasource_health = redash_stmo.health:datasource_health'
+            'datasource_health = redash_stmo.health:datasource_health',
+            'datasource_link = redash_stmo.datasource_link:datasource_link'
+        ],
+        'webpack.bundles': [
+            'datasource_link = redash_stmo.js_extensions:datasource_link',
         ],
     },
     classifiers=[
