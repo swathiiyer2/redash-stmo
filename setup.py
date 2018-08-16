@@ -1,4 +1,18 @@
+import os
+import fnmatch
+
 from setuptools import setup, find_packages
+
+# Note: package_data does not allow files to be listed recursively,
+# so this helper function is used.
+def get_web_files():
+    matches = []
+    PREFIX = './src/redash_stmo/'
+    for root, dirnames, filenames in os.walk(PREFIX):
+        for filename in filenames:
+            if filename.endswith(".js") or filename.endswith(".html"):
+                matches.append(os.path.join(root, filename).split(PREFIX, 1)[1])
+    return matches
 
 setup(
     name='redash-stmo',
@@ -13,6 +27,7 @@ setup(
     ],
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
+    package_data={'redash_stmo': get_web_files()},
     description="Extensions to Redash by Mozilla",
     author='Mozilla Foundation',
     author_email='dev-webdev@lists.mozilla.org',
